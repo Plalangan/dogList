@@ -25,9 +25,9 @@ var dogRepository = (function (){
 
   }
 
-  function showDetails(pokemon) {
-    pokemonRepository.loadDetails(pokemon).then(function () {
-    showModal(pokemon);   })};
+  function showDetails(dog) {
+    dogRepository.loadDetails(dog).then(function () {
+    showModal(dog);   })};
 
   function loadList(){
     return $.ajax(apiUrl, {dataType: 'json'}).then(function(item){
