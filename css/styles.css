@@ -1,6 +1,6 @@
 
 .button  {
-  border: none;
+  border: solid;
   font-family: inherit;
   background-color: #E1E2E1;
   color: #000;
