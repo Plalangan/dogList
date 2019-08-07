@@ -16,13 +16,13 @@ var $dogList = $('<ul></ul>').addClass('dogList');
     return repository;
   }
 
-  function addListItem(dog){
+  function addListItem(item){
     var $addListItem = $('<li></li>');
-    var $button = $('<button class = "button"></button>').text(dog.name);
+    var $button = $('<button class = "button">' + repository[0] + '</button>')
     $addListItem.append($button);
     $button.click(showModal);
     $dogList.append($addListItem);
-
+    $('body').append($dogList);
 
   }
 
@@ -33,18 +33,14 @@ var $dogList = $('<ul></ul>').addClass('dogList');
 
 function loadList(){
       return $.ajax(apiUrl, {dataType: 'json'}).then(function(item){
+        add(item.message);
+        addListItem(repository);
 
-
-
-        $.each(item.message, function(dog){
-          addListItem(dog, item.message[dog]);
-          //Uncomment the line below to see index in the callback function in $.each()
-
-          var dog = {
+        var dog = {
             name: item.message,
           }
           add(dog)
-        });
+
 
         }).catch(function(e){
         console.error(e);
@@ -111,7 +107,7 @@ function loadList(){
     getAll: getAll,
     addListItem: addListItem,
     loadList: loadList,
-  //  loadDetails: loadDetails,
+    loadDetails: loadDetails,
     showModal: showModal,
     hideModal: hideModal
 
@@ -124,10 +120,18 @@ function loadList(){
 ();
 
 
-dogRepository.loadList()
 
+dogRepository.loadList().then(function(){
+  $.each(dogRepository.repository, function(){dogRepository.addListItem(dogRepository.repository[0]);
+  })
+})
 
+/*.then(function(item){
 
+$.each(item.message, function(index, dog){
+  addListItem(dogRepository.repository);
+})};
 
+*/
 
 dogRepository.showModal();
